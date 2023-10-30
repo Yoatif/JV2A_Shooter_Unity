@@ -6,12 +6,13 @@ public class Bullet : MonoBehaviour
 {
     public ScorePlayer scorePl;
     public Rigidbody2D monRigidBody;
+    //public Rigidbody2D mySecondRigidBody;
     public float speed;
     // Start is called before the first frame update
     void Start()
     {
         scorePl = FindObjectOfType<ScorePlayer>();      
-        monRigidBody.velocity = Vector3.up*speed;
+        monRigidBody.velocity = transform.up *speed;
     }
 
     private void Update()
@@ -21,11 +22,15 @@ public class Bullet : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Destroy(collision.gameObject);
-        collision.gameObject.GetComponent  <ReplacementOnDestroy>().MAchinTrucs();
-        scorePl.addScore(1);
+        ReplacementOnDestroy enemi = collision.gameObject.GetComponent  <ReplacementOnDestroy>();
+        if (enemi ==true)
+        {
+            enemi.MAchinTrucs();
+            Destroy(collision.gameObject);
+            scorePl.addScore(1);
+            Destroy(gameObject);
+        }
 
-        Destroy(gameObject);
     }
 
 }

@@ -7,8 +7,8 @@ public class MovementEtTir : MonoBehaviour
     public GameObject bullet;
     public ScorePlayer scorePl;
     public ShootingType shootType;
-    private int scoreToEnableDoubleTir = 20;
-    private int scoreToEnableTripleTir = 100;
+    public int scoreToEUnlockShoot = 20;
+    //public int scoreToEnableTripleBullet = 100;
 
     public Transform parent;
     public Transform limitL;
@@ -37,22 +37,24 @@ public class MovementEtTir : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             Tirer();
+            Debug.Log("je tir");
         }
 
-        /*if (scorePl > scoreToEnableDoubleTir)
+        if (scorePl.playerScore > scoreToEUnlockShoot)
         {
             
-            typeDeTir = TypeDeTir.DoubleBullet;
+            shootType = ShootingType.DoubleBullet;
         }
 
-        else if (scorePl > scoreToEnableTripleBullet)
+        if (scorePl.playerScore > 100)
         {
-          
-            typeDeTir = TypeDeTir.TripleTir;
+
+            shootType = ShootingType.TripleBullet;
         }
-        else { typeDeTir = TypeDeTir.SimpleBullet
+        if(scorePl.playerScore < scoreToEUnlockShoot) {
+            shootType = ShootingType.SimpleBullet;
         
-        }*/
+        }
 
         if (transform.position.x < limitL.position.x)
         {
@@ -68,13 +70,14 @@ public class MovementEtTir : MonoBehaviour
     {
         switch (shootType)
         {
-            case ShootingType.SimpleBullet:
-                break;
             case ShootingType.DoubleBullet:
+                DoubleBullet();
                 break;
             case ShootingType.TripleBullet:
+                TripleBullet();
                 break;
             default:
+                SimpleBullet();
                 break;
         }
     }
@@ -93,8 +96,8 @@ public class MovementEtTir : MonoBehaviour
     public void TripleBullet()
     {
         Instantiate(bullet, parent.position, parent.rotation);
-        Instantiate(bullet, parent.position, parent.Quaternion.Euler(0f,0f,45f));
-        Instantiate(bullet, parent.position, parent.Quaternion.Euler(0f, 0f, -45f));
+        Instantiate(bullet, parent.position, Quaternion.Euler(0f,0f,45f));
+        Instantiate(bullet, parent.position, Quaternion.Euler(0f, 0f, -45f));
 
     }
     public enum ShootingType
