@@ -11,8 +11,8 @@ public class SpawnManager : MonoBehaviour
     public Transform limitR;
     public Transform limitS;
     //creating an interval for the spawn
-    private readonly float startDelay = 2f;
-    private readonly float spawnInterval = 3f;
+    public float startDelay = 2f;
+    public float spawnInterval = 3f;
 
 
     // Start is called before the first frame update
